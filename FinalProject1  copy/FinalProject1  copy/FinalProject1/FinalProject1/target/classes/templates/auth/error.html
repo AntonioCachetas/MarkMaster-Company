@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - Unauthorized Access</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        /* Error Page Specific Styles */
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            color: #333; /* Dark text */
+            padding: 20px;
+        }
+
+        .error-container h1 {
+            font-size: 3rem;
+            color: #dc3545; /* Red for error indication */
+            margin-bottom: 10px;
+        }
+
+        .error-container p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #666; /* Grey for message text */
+        }
+
+        .error-container img {
+            width: 150px;
+            margin-bottom: 30px;
+            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2)); /* Shadow effect for the image */
+        }
+
+        .btn-custom {
+            padding: 12px 30px;
+            font-size: 1rem;
+            background-color: #0056b3;
+            color: #fff;
+            border-radius: 30px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #003d7a; /* Darker blue on hover */
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.4); /* Shadow on hover */
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <img src="https://i.imgur.com/U3vTGjX.png" class="error-image" alt="Error Image">
+    <h1 class="error-heading">403 - Unauthorized Access!</h1>
+    <p class="error-message">You are not authorized to view this page.</p>
+    <a href="/company/home" class="btn btn-custom">Go to the Home Page</a>
+</div>
+</body>
+</html>

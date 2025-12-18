@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <!-- Link to Bootstrap CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Link to custom CSS file using Thymeleaf -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container my-5">
+
+    <!-- Include header fragment -->
+    <header th:include="@{/fragments/header.html}"></header>
+
+    <div class="mb-4">
+        <!-- Teacher's name and course number -->
+        <h2 class="text-primary" th:text="${teacherName}">Professor Smith</h2>
+        <h4 class="text-secondary" th:text="${className}">CPAN-123</h4>
+    </div>
+
+    <!-- Class selection buttons -->
+    <div class="mb-4">
+        <a class="btn btn-primary me-2" th:href="@{/company/students/1}">All Students</a>
+        <a class="btn btn-primary me-2" th:href="@{/company/class/CPAN-123}">CPAN-123</a>
+        <a class="btn btn-primary me-2" th:href="@{/company/class/CPAN-321}">CPAN-321</a>
+        <a class="btn btn-primary" th:href="@{/company/class/CPAN-104}">CPAN-104</a>
+    </div>
+
+    <div class="content">
+        <!-- Display success message if 'message' attribute is present -->
+        <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+        <h1 id="title" class="mb-4">Student List</h1>
+
+        <!-- Reset button -->
+        <div class="mb-4">
+            <a class="btn btn-secondary" th:href="@{/company/students/1}">Reset</a>
+        </div>
+
+        <!-- Table displaying the student list -->
+        <div class="table-container table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">
+                        <a th:href="@{'/company/students/' + ${currentPage} + '?sortField=id&sortDirection=' + ${reverseSortDirection}}">ID</a>
+                    </th>
+                    <th scope="col">
+                        <a th:href="@{'/company/students/' + ${currentPage} + '?sortField=name&sortDirection=' + ${reverseSortDirection}}">NAME</a>
+                    </th>
+                    <th scope="col">
+                        <a th:href="@{'/company/students/' + ${currentPage} + '?sortField=contact&sortDirection=' + ${reverseSortDirection}}">CONTACT INFO</a>
+                    </th>
+                    <th scope="col">
+                        <a th:href="@{'/company/students/' + ${currentPage} + '?sortField=grade&sortDirection=' + ${reverseSortDirection}}">GRADE</a>
+                    </th>
+                    <th scope="col">
+                        <a th:href="@{'/company/students/' + ${currentPage} + '?sortField=className&sortDirection=' + ${reverseSortDirection}}">CLASS</a>
+                    </th>
+                    <th scope="col" colspan="2">OPERATIONS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.contact}"></td>
+                    <td th:text="${student.grade}"></td>
+                    <td th:text="${student.className}"></td>
+                    <td>
+                        <a th:href="@{/company/admin/delete/{id}(id=${student.id})}" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/company/admin/update/{id}(id=${student.id})}" class="btn btn-success btn-sm">Update</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination section -->
+    <div class="pagination mt-4">
+        <div class="pagination-info mb-2">
+            <div>Total Students: <span th:text="${totalItems}"></span></div>
+            <div>Current Page: <span th:text="${currentPage}"></span></div>
+            <div>Total Pages: <span th:text="${totalPages}"></span></div>
+        </div>
+        <div class="pagination-no" th:if="${totalPages > 0}">
+            <div th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a th:href="@{'/company/students/' + ${i} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection} }"
+                   th:text="${i}"></a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-4">
+        <p>&copy; 2024 MarkMaster Company All rights reserved.</p>
+    </footer>
+</div>
+
+<!-- Bootstrap JS for dropdown functionality -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-mQ93ZRihIFgN29Vgso1kxTljOm5b8AhjYLnA51SRwqOx0lSxUBiJrZ1B6aqw3GWp" crossorigin="anonymous"></script>
+
+</body>
+</html>
